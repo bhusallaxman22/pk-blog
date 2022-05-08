@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/aa4476c8-b2dd-440b-a164-b55defebee2f/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/bloglaxman",
+    "appService.deploySubpath": ""
+}
