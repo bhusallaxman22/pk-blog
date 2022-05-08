@@ -28,21 +28,20 @@ router.post('/', function (req, res) {
     if (!id) {
         return res.status(401).send("Not Authorised");
     }
-    var title = req.body.title;
-    var body = req.body.body;
-    var image = req.body.image;
-    var author = req.body.author;
+    const { title, body, author, uid, image } = req.body;
     var newBlog = {
         title: title,
         body: body,
         image: image,
-        author: author
+        author: author,
+        uid: uid
     }
     db.blogs.create(newBlog, function (err, newlyCreated) {
         if (err) {
             console.log(err);
         } else {
             res.redirect('/#/');
+            console.log(newlyCreated);
         }
     });
 }
@@ -82,14 +81,14 @@ router.put('/:id', function (req, res) {
 );
 
 //DELETE ROUTE
-router.delete('/:id', function (req, res) {
-    // const token = req.header('x-auth-token');
-    // const id = auth(token);
-    // if (!id) {
-    //     return res.status(401).send("Not Authorised");
-    // }
-    const { id } = req.body;
-    db.blogs.findByIdAndRemove(id, function (err) {
+router.post('/:id', function (req, res) {
+    const token = req.header('x-auth-token');
+    const id = auth(token);
+    if (!id) {
+        return res.status(401).send("Not Authorised");
+    }
+    console.log("Hello", req.body.id);
+    db.blogs.deleteOne({ _id: req.body.id, uid: id }, function (err) {
         if (err) {
             res.redirect('/blogs');
         } else {

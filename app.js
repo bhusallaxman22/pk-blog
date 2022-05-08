@@ -31,7 +31,6 @@ app.use(expressSanitizer());
 
 app.use(methodOverride('_method'));
 
-app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
