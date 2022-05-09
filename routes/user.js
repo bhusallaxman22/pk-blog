@@ -9,29 +9,35 @@ const auth = require("../config/auth")
 // @desc Register's a user
 // @access Public
 router.post("/register", (req, res) => {
-    // if (!isValid) {
-    //   return res.status(400).send(JSON.stringify(errors));
-    // }
-    const newUser = new User({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password,
-    })
-    // bcrypt hashes password asynchronously
-    bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if (err) {
-                console.log(err)
+    // checks if email is already in use
+    User.findOne({ email: req.body.email })
+        .then(user => {
+            if (user) {
+                return res.status(400).json("Email already exists")
             } else {
-                newUser.password = hash
-                newUser.save()
-                    .then(user => res.json(user))
-                    .catch(err => console.log(err))
+                const newUser = new User({
+                    name: req.body.name,
+                    email: req.body.email,
+                    password: req.body.password,
+                })
+
+                // bcrypt hashes password asynchronously
+                bcrypt.genSalt(10, (err, salt) => {
+                    bcrypt.hash(newUser.password, salt, (err, hash) => {
+                        if (err) {
+                            console.log(err)
+                        } else {
+                            newUser.password = hash
+                            newUser.save()
+                                .then(user => res.json(user))
+                                .catch(err => console.log(err))
+                        }
+                    })
+                })
             }
         })
-    })
-}
-)
+})
+
 
 // @route POST api/user/login
 // @desc Login user and return JWT token
