@@ -13,17 +13,18 @@ I've used MongoDB. This is a app I made to Learn RESTFUL Routes.
 | Show    | /blogs/:id      | GET       |
 | Edit    | /blogs/:id/edit | GET       |
 | Update  | /blogs/:id      | PUT       |
-| Destroy | /blogs/:id      | DELETE    |
+| Destroy | /blogs/:id      | POST      |
 
 # Dependencies and Conventions
-
-Since HTML only supports POST and GET methods I've used a npm library called `method-override` to perform PUT and DELETE request.
-
+I've used Semantic Ui and react for front end with React Testing Library.
+For Backend I've used node with expressjs and MongoDB as database.
 ## TODOS.
 
 - [x] Add, delete and Edit blogs,
-- [ ] Add Authentication,
-- [ ] Only Authenticated and selected user can Add, Edit and Update Blogs
+- [x] Add Authentication,
+- [x] Only Authenticated and selected user can Add, Edit and Update Blogs
+- [ ] Add Admin Dashboard
+- [ ] Add Profile Page and user's Dashboard
 
 ### Installation
 
@@ -34,5 +35,3 @@ Clone this repo.
 run `npm install`.
 
 run `nodemon app`.
-
-Enjoy the app.

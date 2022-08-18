@@ -2,6 +2,9 @@ const router = require("express").Router()
 const auth = require("../config/auth")
 const db = require("../db")
 const sanitizer = require("express-sanitizer")
+// @route GET blogs/
+// @desc Get all Blogs
+// @access Public
 router.get('/', function (req, res) {
     db.blogs.find({}, function (err, blogs) {
         if (err) {
@@ -11,6 +14,9 @@ router.get('/', function (req, res) {
         }
     });
 });
+// @route GET blogs/
+// @desc Get all Blogs
+// @access Public
 router.get('/api', function (req, res) {
     db.blogs.find({}, function (err, blogs) {
         if (err) {
@@ -21,7 +27,9 @@ router.get('/api', function (req, res) {
     });
 });
 
-// New Route
+// @route Post blogs/
+// @desc Post a new Blog
+// @access Private
 router.post('/', function (req, res) {
     const token = req.header("x-auth-token");
     const id = auth(token);
@@ -47,7 +55,9 @@ router.post('/', function (req, res) {
 }
 );
 
-//SHOW MORE
+// @route GET blogs/:id
+// @desc get a blog's info
+// @access Public
 router.get('/:id', function (req, res) {
     db.blogs.findById(req.params.id, function (err, foundBlog) {
         if (err) {
@@ -60,7 +70,9 @@ router.get('/:id', function (req, res) {
 });
 
 
-//UPDATE ROUTE
+// @route PUT blogs/:id
+// @desc edit a blog's info
+// @access Private
 router.put('/:id', function (req, res) {
     req.body.body = req.sanitize(req.body.body);
     const token = req.header('x-auth-token');
@@ -80,7 +92,9 @@ router.put('/:id', function (req, res) {
 }
 );
 
-//DELETE ROUTE
+// @route POST blogs/:id
+// @desc get a blog's info
+// @access Private
 router.post('/:id', function (req, res) {
     const token = req.header('x-auth-token');
     const id = auth(token);
@@ -96,6 +110,5 @@ router.post('/:id', function (req, res) {
         }
     });
 });
-
 
 module.exports = router;
