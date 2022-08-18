@@ -13,6 +13,7 @@ const blog = require('./routes/blog');
 const port = 1234;
 const app = express();
 app.use(require('morgan')('combined'));
+require('dotenv').config()
 
 mongoose
 	.connect(
@@ -23,7 +24,7 @@ mongoose
 		}
 	)
 	.then(() => console.log('connected to DB'))
-	.catch((err) => console.log('connection to Db failed', err.message));
+	.catch((err) => console.log('connection to Db failed', err));
 
 mongoose.set('useFindAndModify', false);
 app.use(cors());
